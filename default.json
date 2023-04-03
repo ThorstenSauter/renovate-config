@@ -42,7 +42,6 @@
       "groupName": "Non-major NuGet dependencies",
       "groupSlug": "non-major-nuget-dependencies",
       "addLabels": [
-        "dependencies",
         ".NET"
       ]
     },
@@ -54,7 +53,6 @@
         "major"
       ],
       "addLabels": [
-        "dependencies",
         ".NET",
         "breaking"
       ]
