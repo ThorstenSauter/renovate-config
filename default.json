@@ -3,7 +3,8 @@
   "extends": [
     "config:base",
     ":disableRateLimiting",
-    "schedule:daily"
+    "schedule:daily",
+    ":semanticCommits"
   ],
   "assigneesFromCodeOwners": true,
   "labels": [
