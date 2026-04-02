@@ -1,16 +1,22 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
+    "config:recommended",
     ":disableRateLimiting",
     "schedule:daily",
-    ":semanticCommits"
+    ":semanticCommits",
+    ":enableVulnerabilityAlerts"
   ],
-  "assigneesFromCodeOwners": true,
+  "configMigration": true,
+  "reviewersFromCodeOwners": true,
   "labels": [
     "dependencies"
   ],
   "packageRules": [
+    {
+      "matchPackageNames": ["*"],
+      "stabilityDays": 3
+    },
     {
       "matchManagers": [
         "dockerfile",
