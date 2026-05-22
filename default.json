@@ -18,6 +18,28 @@
       "stabilityDays": 3
     },
     {
+      "matchManagers": ["nuget"],
+      "matchPackageNames": [
+        "Aspire.**",
+        "Azure.**",
+        "Microsoft.**"
+      ],
+      "stabilityDays": 0
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchPackageNames": [
+        "@azure/**",
+        "next",
+        "@next/**",
+        "react",
+        "react-dom",
+        "@types/react",
+        "@types/react-dom"
+      ],
+      "stabilityDays": 0
+    },
+    {
       "matchManagers": [
         "dockerfile",
         "docker-compose"
