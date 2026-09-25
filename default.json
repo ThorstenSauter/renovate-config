@@ -15,7 +15,14 @@
   "packageRules": [
     {
       "matchPackageNames": ["*"],
-      "stabilityDays": 3
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "matchPackageNames": [
+        "ThorstenSauter/**",
+        "ghcr.io/thorstensauter/**"
+      ],
+      "minimumReleaseAge": null
     },
     {
       "matchManagers": ["nuget"],
@@ -24,7 +31,7 @@
         "Azure.**",
         "Microsoft.**"
       ],
-      "stabilityDays": 0
+      "minimumReleaseAge": null
     },
     {
       "matchManagers": ["npm"],
@@ -37,7 +44,7 @@
         "@types/react",
         "@types/react-dom"
       ],
-      "stabilityDays": 0
+      "minimumReleaseAge": null
     },
     {
       "matchManagers": [
