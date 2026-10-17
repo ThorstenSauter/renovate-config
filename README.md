@@ -15,9 +15,12 @@ Contains account-wide Renovate bot presets. Reference them from the `extends` ar
 
 What it does:
 
-- Builds on `config:recommended` with a daily schedule, semantic commits, vulnerability alerts and no PR rate limiting.
+- Builds on `config:best-practices` with a daily schedule, semantic commits, vulnerability alerts and no PR rate
+  limiting. That includes pinning Docker images to digests, pinning npm devDependencies, weekly lock file
+  maintenance and flagging abandoned packages on the Dependency Dashboard.
 - Pins GitHub Actions to commit SHAs with a full-version comment (e.g. `# v1.2.3`).
-- Waits 3 days (`minimumReleaseAge`) before proposing a new release, except for trusted publishers:
+- Waits 3 days (`minimumReleaseAge`) before proposing a new release, except for update types that carry no release
+  timestamp (replacements, lock file maintenance, pins) and for trusted publishers:
   - own `ThorstenSauter/**` actions and `ghcr.io/thorstensauter/**` images
   - `Aspire.*`, `Azure.*` and `Microsoft.*` NuGet packages
   - `@azure/*`, Next.js and React npm packages
