@@ -5,7 +5,8 @@
     ":disableRateLimiting",
     "schedule:daily",
     ":semanticCommits",
-    ":enableVulnerabilityAlerts"
+    ":enableVulnerabilityAlerts",
+    "helpers:pinGitHubActionDigestsToSemver"
   ],
   "configMigration": true,
   "reviewersFromCodeOwners": true,
@@ -89,8 +90,7 @@
         "major"
       ],
       "addLabels": [
-        "npm",
-        "breaking"
+        "npm"
       ]
     },
     {
@@ -115,8 +115,7 @@
         "major"
       ],
       "addLabels": [
-        ".NET",
-        "breaking"
+        ".NET"
       ]
     },
     {
@@ -128,6 +127,14 @@
       "groupSlug": "terraform-providers-and-tflint-plugins",
       "addLabels": [
         "terraform"
+      ]
+    },
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "addLabels": [
+        "breaking"
       ]
     }
   ]
