@@ -1,7 +1,7 @@
 # renovate-config
 
-Contains account-wide Renovate bot presets. They can be referenced in other repositories by referencing them in
-the `extends` array of the `renovate.json` configuration as follows:
+Contains account-wide Renovate bot presets. Reference them from the `extends` array of a repository's
+`renovate.json` configuration as shown below.
 
 ## Default preset ([default.json](./default.json))
 
@@ -12,6 +12,19 @@ the `extends` array of the `renovate.json` configuration as follows:
   ]
 }
 ```
+
+What it does:
+
+- Builds on `config:recommended` with a daily schedule, semantic commits, vulnerability alerts and no PR rate limiting.
+- Pins GitHub Actions to commit SHAs with a full-version comment (e.g. `# v1.2.3`).
+- Waits 3 days (`minimumReleaseAge`) before proposing a new release, except for trusted publishers:
+  - own `ThorstenSauter/**` actions and `ghcr.io/thorstensauter/**` images
+  - `Aspire.*`, `Azure.*` and `Microsoft.*` NuGet packages
+  - `@azure/*`, Next.js and React npm packages
+- Groups updates by ecosystem: Docker, GitHub Actions, non-major npm, non-major NuGet, and Terraform providers with
+  TFLint plugins. Major updates still get their own PRs.
+- Labels every PR `dependencies` plus an ecosystem label (`docker`, `github_actions`, `npm`, `.NET`, `terraform`), and
+  adds `breaking` to major updates.
 
 ## Named presets, e.g. `foo.json`
 
