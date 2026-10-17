@@ -1,14 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
+    "config:best-practices",
     ":disableRateLimiting",
     "schedule:daily",
     ":semanticCommits",
     ":enableVulnerabilityAlerts",
     "helpers:pinGitHubActionDigestsToSemver"
   ],
-  "configMigration": true,
   "reviewersFromCodeOwners": true,
   "labels": [
     "dependencies"
@@ -17,6 +16,17 @@
     {
       "matchPackageNames": ["*"],
       "minimumReleaseAge": "3 days"
+    },
+    {
+      "matchUpdateTypes": [
+        "replacement",
+        "lockFileMaintenance",
+        "pin",
+        "bump",
+        "lockfileUpdate",
+        "rollback"
+      ],
+      "minimumReleaseAge": null
     },
     {
       "matchPackageNames": [
