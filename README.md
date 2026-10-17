@@ -15,10 +15,17 @@ Contains account-wide Renovate bot presets. Reference them from the `extends` ar
 
 What it does:
 
-- Builds on `config:best-practices` with a daily schedule, semantic commits, vulnerability alerts and no PR rate
-  limiting. That includes pinning Docker images to digests, pinning npm devDependencies, weekly lock file
+- Builds on `config:best-practices` with a daily schedule (before 4 AM, Europe/Berlin), semantic commits,
+  vulnerability alerts (GitHub and [OSV](https://osv.dev)) and no PR rate limiting. That includes pinning Docker images to digests, pinning npm devDependencies, weekly lock file
   maintenance and flagging abandoned packages on the Dependency Dashboard.
 - Pins GitHub Actions to commit SHAs with a full-version comment (e.g. `# v1.2.3`).
+- Updates `*_VERSION` variables in workflows and actions that carry a `# renovate:` annotation, e.g.
+
+  ```yaml
+  env:
+    # renovate: datasource=github-releases depName=hashicorp/terraform
+    TERRAFORM_VERSION: 1.16.4
+  ```
 - Waits 3 days (`minimumReleaseAge`) before proposing a new release, except for update types that carry no release
   timestamp (replacements, lock file maintenance, pins) and for trusted publishers:
   - own `ThorstenSauter/**` actions and `ghcr.io/thorstensauter/**` images

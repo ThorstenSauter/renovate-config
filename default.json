@@ -4,20 +4,25 @@
     "config:best-practices",
     ":disableRateLimiting",
     "schedule:daily",
+    ":timezone(Europe/Berlin)",
     ":semanticCommits",
     ":enableVulnerabilityAlerts",
-    "helpers:pinGitHubActionDigestsToSemver"
+    "helpers:pinGitHubActionDigestsToSemver",
+    "customManagers:githubActionsVersions"
   ],
+  "osvVulnerabilityAlerts": true,
   "reviewersFromCodeOwners": true,
   "labels": [
     "dependencies"
   ],
   "packageRules": [
     {
+      "description": "Wait 3 days before proposing a new release so malicious or broken releases can be caught and yanked",
       "matchPackageNames": ["*"],
       "minimumReleaseAge": "3 days"
     },
     {
+      "description": "Skip the release-age window for update types without a release timestamp, which would otherwise never be raised",
       "matchUpdateTypes": [
         "replacement",
         "lockFileMaintenance",
@@ -29,6 +34,7 @@
       "minimumReleaseAge": null
     },
     {
+      "description": "Skip the release-age window for own GitHub Actions and container images",
       "matchPackageNames": [
         "ThorstenSauter/**",
         "ghcr.io/thorstensauter/**"
@@ -36,6 +42,7 @@
       "minimumReleaseAge": null
     },
     {
+      "description": "Skip the release-age window for trusted Microsoft, Azure and Aspire NuGet packages",
       "matchManagers": ["nuget"],
       "matchPackageNames": [
         "Aspire.**",
@@ -45,6 +52,7 @@
       "minimumReleaseAge": null
     },
     {
+      "description": "Skip the release-age window for trusted Azure, Next.js and React npm packages",
       "matchManagers": ["npm"],
       "matchPackageNames": [
         "@azure/**",
@@ -58,6 +66,7 @@
       "minimumReleaseAge": null
     },
     {
+      "description": "Group Docker image updates",
       "matchManagers": [
         "dockerfile",
         "docker-compose"
@@ -69,6 +78,7 @@
       ]
     },
     {
+      "description": "Group GitHub Actions updates",
       "matchManagers": [
         "github-actions"
       ],
@@ -79,6 +89,7 @@
       ]
     },
     {
+      "description": "Group non-major npm updates",
       "matchManagers": [
         "npm"
       ],
@@ -93,6 +104,7 @@
       ]
     },
     {
+      "description": "Label major npm updates, which get their own PRs",
       "matchManagers": [
         "npm"
       ],
@@ -104,6 +116,7 @@
       ]
     },
     {
+      "description": "Group non-major NuGet updates",
       "matchManagers": [
         "nuget"
       ],
@@ -118,6 +131,7 @@
       ]
     },
     {
+      "description": "Label major NuGet updates, which get their own PRs",
       "matchManagers": [
         "nuget"
       ],
@@ -129,6 +143,7 @@
       ]
     },
     {
+      "description": "Group Terraform provider and TFLint plugin updates",
       "matchManagers": [
         "terraform",
         "tflint-plugin"
@@ -140,6 +155,7 @@
       ]
     },
     {
+      "description": "Flag every major update as potentially breaking",
       "matchUpdateTypes": [
         "major"
       ],
