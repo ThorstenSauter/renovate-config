@@ -31,8 +31,12 @@ What it does:
   - own `ThorstenSauter/**` actions and `ghcr.io/thorstensauter/**` images
   - `Aspire.*`, `Azure.*` and `Microsoft.*` NuGet packages
   - `@azure/*`, Next.js and React npm packages
-- Groups updates by ecosystem: Docker, GitHub Actions, non-major npm, non-major NuGet, and Terraform providers with
-  TFLint plugins. Major updates still get their own PRs.
+- Groups updates by ecosystem: Docker, GitHub Actions, non-major npm, non-major NuGet, and Terraform (CLI version in
+  `.terraform-version`, providers and TFLint plugins). Major updates still get their own PRs.
+- Automerges minor, patch, digest, pin and lock file maintenance updates through GitHub's auto-merge, so they merge as
+  soon as the branch's required status checks pass. Major updates are left for manual review. Repositories using this
+  preset need "Allow auto-merge" enabled and required status checks on their default branch; otherwise PRs merge
+  without any checks.
 - Labels every PR `dependencies` plus an ecosystem label (`docker`, `github_actions`, `npm`, `.NET`, `terraform`), and
   adds `breaking` to major updates.
 

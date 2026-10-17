@@ -143,9 +143,10 @@
       ]
     },
     {
-      "description": "Group Terraform provider and TFLint plugin updates",
+      "description": "Group Terraform CLI, provider and TFLint plugin updates",
       "matchManagers": [
         "terraform",
+        "terraform-version",
         "tflint-plugin"
       ],
       "groupName": "Terraform providers and TFLint plugins",
@@ -153,6 +154,18 @@
       "addLabels": [
         "terraform"
       ]
+    },
+    {
+      "description": "Automerge non-major updates once the required status checks pass; majors stay manual",
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest",
+        "pinDigest",
+        "pin",
+        "lockFileMaintenance"
+      ],
+      "automerge": true
     },
     {
       "description": "Flag every major update as potentially breaking",
