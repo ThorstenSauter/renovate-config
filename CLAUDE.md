@@ -22,7 +22,8 @@ npx --yes --package renovate@latest -- renovate-config-validator --strict defaul
 
 ## Structure of `default.json`
 
-- `extends` pulls in the built-in presets (`config:best-practices`, daily schedule, semantic commits, vulnerability alerts, no rate limiting, SHA-pinned Actions with semver comments).
+- `extends` pulls in the built-in presets (`config:best-practices`, daily schedule in Europe/Berlin, semantic commits, vulnerability alerts, no rate limiting, SHA-pinned Actions with semver comments, and `customManagers:githubActionsVersions` for `# renovate:`-annotated `*_VERSION` variables in workflows). `osvVulnerabilityAlerts` adds OSV as a second vulnerability source.
+- Every package rule has a `description`; keep that up for new rules.
 - `packageRules` are evaluated in order, and later matching rules override earlier ones. The ordering matters for the release-age window: a catch-all rule (`matchPackageNames: ["*"]`) sets `minimumReleaseAge: "3 days"`, and the rules that follow clear it (`null`) for update types without a release timestamp (replacement, lockFileMaintenance, pin, bump, lockfileUpdate, rollback), which would otherwise never be raised, and for trusted publishers (the owner's own `ThorstenSauter/**` actions and `ghcr.io/thorstensauter/**` images; Microsoft/Azure/Aspire NuGet packages; Azure, Next.js, and React npm packages). Keep new trusted-publisher exemptions after the catch-all rule.
 - The remaining rules group updates by ecosystem (Docker, GitHub Actions, npm, NuGet, Terraform/TFLint) and apply labels. Non-major npm/NuGet updates are grouped. A final catch-all rule adds a `breaking` label to every major update.
 
