@@ -12,7 +12,7 @@ A Renovate [shareable config preset](https://docs.renovatebot.com/config-presets
 
 ## Validation
 
-CI (`.github/workflows/renovate-config-validation.yml`) runs `rinchsan/renovate-config-validator` against `*.json` in the repo root on PRs and pushes to `main`. Note that this glob does not cover `.github/renovate.json`.
+CI (`.github/workflows/renovate-config-validation.yml`) runs `rinchsan/renovate-config-validator` against `*.json` in the repo root and, in a separate step, `.github/renovate.json`, on PRs and pushes to `main`. Keep both steps in the single `Validate Renovate configurations` job: that job name is a required status check in `main`'s branch protection.
 
 To validate locally before pushing:
 
@@ -24,7 +24,7 @@ npx --yes --package renovate@latest -- renovate-config-validator --strict defaul
 
 - `extends` pulls in the built-in presets (`config:recommended`, daily schedule, semantic commits, vulnerability alerts, no rate limiting).
 - `packageRules` are evaluated in order, and later matching rules override earlier ones. The ordering matters for the release-age window: a catch-all rule (`matchPackageNames: ["*"]`) sets `minimumReleaseAge: "3 days"`, and the rules that follow clear it (`null`) for trusted publishers (the owner's own `ThorstenSauter/**` actions and `ghcr.io/thorstensauter/**` images; Microsoft/Azure/Aspire NuGet packages; Azure, Next.js, and React npm packages). Keep new trusted-publisher exemptions after the catch-all rule.
-- The remaining rules group updates by ecosystem (Docker, GitHub Actions, npm, NuGet, Terraform/TFLint) and apply labels. Non-major npm/NuGet updates are grouped, and major updates get an extra `breaking` label.
+- The remaining rules group updates by ecosystem (Docker, GitHub Actions, npm, NuGet, Terraform/TFLint) and apply labels. Non-major npm/NuGet updates are grouped. A final catch-all rule adds a `breaking` label to every major update.
 
 ## Conventions
 
