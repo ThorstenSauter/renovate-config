@@ -89,6 +89,13 @@
       ]
     },
     {
+      "description": "Workflows reference actions by version tag and each repository locks the commits in .github/workflows/actions.lock, so stop pinning GitHub Actions digests",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "pinDigests": false
+    },
+    {
       "description": "Group non-major npm updates",
       "matchManagers": [
         "npm"
