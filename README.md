@@ -18,7 +18,9 @@ What it does:
 - Builds on `config:best-practices` with a daily schedule (before 4 AM, Europe/Berlin), semantic commits,
   vulnerability alerts (GitHub and [OSV](https://osv.dev)) and no PR rate limiting. That includes pinning Docker images to digests, pinning npm devDependencies, weekly lock file
   maintenance and flagging abandoned packages on the Dependency Dashboard.
-- Pins GitHub Actions to commit SHAs with a full-version comment (e.g. `# v1.2.3`).
+- Updates GitHub Actions to full version tags (e.g. `@v1.2.3`) without pinning commit SHAs: each repository locks the
+  commits in a [workflow lockfile](https://docs.github.com/en/actions/concepts/security/workflow-dependency-lockfiles)
+  (`.github/workflows/actions.lock`), which Renovate regenerates with every action update.
 - Updates `*_VERSION` variables in workflows and actions that carry a `# renovate:` annotation, e.g.
 
   ```yaml

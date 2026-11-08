@@ -22,13 +22,14 @@ npx --yes --package renovate@latest -- renovate-config-validator --strict defaul
 
 ## Structure of `default.json`
 
-- `extends` pulls in the built-in presets (`config:best-practices`, daily schedule in Europe/Berlin, semantic commits, vulnerability alerts, no rate limiting, SHA-pinned Actions with semver comments, and `customManagers:githubActionsVersions` for `# renovate:`-annotated `*_VERSION` variables in workflows). `osvVulnerabilityAlerts` adds OSV as a second vulnerability source.
+- `extends` pulls in the built-in presets (`config:best-practices`, daily schedule in Europe/Berlin, semantic commits, vulnerability alerts, no rate limiting, `helpers:pinGitHubActionDigestsToSemver` for full-version Action tags, and `customManagers:githubActionsVersions` for `# renovate:`-annotated `*_VERSION` variables in workflows). `osvVulnerabilityAlerts` adds OSV as a second vulnerability source.
 - Every package rule has a `description`; keep that up for new rules.
 - `packageRules` are evaluated in order, and later matching rules override earlier ones. The ordering matters for the release-age window: a catch-all rule (`matchPackageNames: ["*"]`) sets `minimumReleaseAge: "3 days"`, and the rules that follow clear it (`null`) for update types without a release timestamp (replacement, lockFileMaintenance, pin, bump, lockfileUpdate, rollback), which would otherwise never be raised, and for trusted publishers (the owner's own `ThorstenSauter/**` actions and `ghcr.io/thorstensauter/**` images; Microsoft/Azure/Aspire NuGet packages; Azure, Next.js, and React npm packages). Keep new trusted-publisher exemptions after the catch-all rule.
 - The remaining rules group updates by ecosystem (Docker, GitHub Actions, npm, NuGet, Terraform/TFLint) and apply labels. Non-major npm/NuGet updates are grouped. Non-major, digest, pin and lock file maintenance updates are automerged via GitHub's platform auto-merge, which relies on each consuming repo requiring status checks on its default branch. A final catch-all rule adds a `breaking` label to every major update.
+- A `github-actions` rule turns `pinDigests` off again (it comes from `config:best-practices` and the helper above): every consuming repository references actions by version tag and locks the commits in `.github/workflows/actions.lock`, which Renovate regenerates with each action update. Existing digest pins are still updated.
 
 ## Conventions
 
 - Commits and PR titles use Conventional Commits with a scope, e.g. `feat(config): ...` and `chore(config): ...`. Renovate's own PRs use `chore(deps): ...`.
 - JSON uses 2-space indentation (see `.editorconfig`).
-- GitHub Actions are pinned to full commit SHAs with a trailing `# vX.Y.Z` comment, which Renovate keeps updated.
+- GitHub Actions are referenced by full version tag (`@vX.Y.Z`), with the commits locked in `.github/workflows/actions.lock`. After changing a `uses:` line by hand, run `gh actions-lock` and commit the lockfile.
