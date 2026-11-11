@@ -42,19 +42,12 @@
       "minimumReleaseAge": null
     },
     {
-      "description": "Skip the release-age window for trusted Microsoft, Azure and Aspire NuGet packages",
+      "description": "Skip the release-age window for trusted vendor NuGet packages and our own",
       "matchManagers": ["nuget"],
       "matchPackageNames": [
         "Aspire.**",
         "Azure.**",
-        "Microsoft.**"
-      ],
-      "minimumReleaseAge": null
-    },
-    {
-      "description": "Skip the release-age window for our own NuGet packages",
-      "matchManagers": ["nuget"],
-      "matchPackageNames": [
+        "Microsoft.**",
         "ThorstenSauter.**"
       ],
       "minimumReleaseAge": null
