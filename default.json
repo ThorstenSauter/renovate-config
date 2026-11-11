@@ -52,6 +52,14 @@
       "minimumReleaseAge": null
     },
     {
+      "description": "Skip the release-age window for our own NuGet packages",
+      "matchManagers": ["nuget"],
+      "matchPackageNames": [
+        "ThorstenSauter.**"
+      ],
+      "minimumReleaseAge": null
+    },
+    {
       "description": "Skip the release-age window for trusted Azure, Next.js and React npm packages",
       "matchManagers": ["npm"],
       "matchPackageNames": [
